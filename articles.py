@@ -17,10 +17,9 @@ def postNewsAPI (keyword):
                                             #  from_param='2022-10-10',
                                             #  to='2022-11-01',
                                               language='en',
-                                              sort_by='relevancy',
-                                              page=2)
+                                              sort_by='relevancy')
     # /v2/top-headlines/sources
     sources = newsapi.get_sources()
 
-    return sources
+    return all_articles
 

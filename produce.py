@@ -13,7 +13,7 @@ my_producer = KafkaProducer(
 
 for k in keywords:
     data = postNewsAPI(k)
-    my_producer.send(k, value = data)
+    my_producer.send(k, value=data)
     sleep(5)
 """
 
