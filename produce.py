@@ -11,7 +11,13 @@ my_producer = KafkaProducer(
     value_serializer=lambda x: dumps(x).encode('utf-8')
 )
 
+"""
 for k in keywords:
     postNewsAPI(k)
     my_producer.send(k, value = k)
     sleep(10)
+"""
+for n in range(500):
+    my_data = {'num':n}
+    my_producer.send('testnum', value = my_data)
+    sleep(5)

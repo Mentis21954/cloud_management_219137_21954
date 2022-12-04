@@ -4,7 +4,7 @@ from kafka import KafkaConsumer
 
 # generating the Kafka Consumer
 my_consumer = KafkaConsumer(
-    'quickstart',
+    'testnum',
     bootstrap_servers=['localhost : 9092'],
     auto_offset_reset='earliest',
     enable_auto_commit=True,
