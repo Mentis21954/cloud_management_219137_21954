@@ -14,8 +14,8 @@ def postNewsAPI (keyword):
     all_articles = newsapi.get_everything(q=keyword,
                                              # sources='bbc-news,the-verge',
                                              # domains='bbc.co.uk,techcrunch.com',
-                                              from_param='2022-10-10',
-                                              to='2022-11-01',
+                                            #  from_param='2022-10-10',
+                                            #  to='2022-11-01',
                                               language='en',
                                               sort_by='relevancy',
                                               page=2)

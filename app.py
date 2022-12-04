@@ -12,7 +12,7 @@ def hello_world():  # put application's code here
 
 @app.route('/all_articles')
 def get_all_articles():  # put application's code here
-    return postNewsAPI(keywords[0])
+    return 'empty by far'
 
 
 
