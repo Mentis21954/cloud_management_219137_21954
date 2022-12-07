@@ -21,5 +21,5 @@ def postNewsAPI (keyword):
     # /v2/top-headlines/sources
     sources = newsapi.get_sources()
 
-    return sources
+    return top_headlines
 
