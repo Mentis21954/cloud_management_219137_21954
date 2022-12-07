@@ -10,9 +10,9 @@ def hello_world():  # put application's code here
     return '<h1> hello </h1>'
 
 
-@app.route('/all_articles')
-def get_all_articles():  # put application's code here
-    return postNewsAPI('bitcoin')
+@app.route('/iphone')
+def get_iphone():  # put application's code here
+    return postNewsAPI('iphone')
 
 
 
