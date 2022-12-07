@@ -3,7 +3,7 @@ from articles import postNewsAPI
 
 app = Flask(__name__)
 
-keywords = ['bitcoin', 'tesla']
+keywords = ['iphone', 'android', 'cars']
 
 @app.route('/')
 def hello_world():  # put application's code here
