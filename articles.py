@@ -1,4 +1,5 @@
 from newsapi import NewsApiClient
+import json
 
 # Init
 newsapi = NewsApiClient(api_key='4d1d7d11eab64482a94668a4899dfc5e')
@@ -21,5 +22,13 @@ def postNewsAPI (keyword):
     # /v2/top-headlines/sources
     sources = newsapi.get_sources()
 
-    return top_headlines
+    # Serializing json
+    json_object = json.dumps(all_articles)
+
+    return all_articles
+
+def names(keyword):
+    data = postNewsAPI(keyword)
+    print(data.find('url'))
+
 

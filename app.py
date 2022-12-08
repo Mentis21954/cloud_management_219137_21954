@@ -12,7 +12,8 @@ def hello_world():  # put application's code here
 
 @app.route('/iphone')
 def get_iphone():  # put application's code here
-    return postNewsAPI('iphone')
+    # return consumer(keywords[0])
+    return postNewsAPI(keywords[0])
 
 
 

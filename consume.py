@@ -1,27 +1,30 @@
 from json import loads
 from kafka import KafkaConsumer
-from app import keywords
-from kafka.admin import KafkaAdminClient, NewTopic
-from pymongo import MongoClient
+import pymongo
 
+myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+
+mydb = myclient["mydatabase"]
+
+mycol = mydb["articles"]
 
 # generating the Kafka Consumer
+#def consumer(keyword):
 my_consumer = KafkaConsumer(
-        'cars',
+        'iphone',
         bootstrap_servers=['localhost : 9092'],
         auto_offset_reset='earliest',
-         enable_auto_commit=True,
+        enable_auto_commit=True,
         group_id='my-group',
         value_deserializer=lambda x: loads(x.decode('utf-8'))
 )
 
-# my_client = MongoClient('localhost : 27017')
-# my_collection = my_client.testnum.testnum
-
 for message in my_consumer:
-        # message = message.value
-        # collection.insert_one(message)
+        message = message.value
+        mycol.insert_one(message)
         print(message)
+
+
 
 
 
