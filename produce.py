@@ -1,7 +1,7 @@
 from app import keywords
 from json import dumps
 from kafka import KafkaProducer
-from articles import  postNewsAPI
+from articles import postNewsAPI
 from time import sleep
 
 
@@ -14,4 +14,5 @@ my_producer = KafkaProducer(
 for t in keywords:
     data = postNewsAPI(t)
     my_producer.send(topic=t, value=data)
+    print("Message for topic " + t + " has send\n")
     sleep(5)
