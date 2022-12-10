@@ -2,7 +2,8 @@ from newsapi import NewsApiClient
 import json
 
 # Init
-newsapi = NewsApiClient(api_key='4d1d7d11eab64482a94668a4899dfc5e')
+#newsapi = NewsApiClient(api_key='4d1d7d11eab64482a94668a4899dfc5e')
+newsapi = NewsApiClient(api_key='995786d01d324334a9dce9b5f8fe405f')
 
 
 def postNewsAPI (keyword):

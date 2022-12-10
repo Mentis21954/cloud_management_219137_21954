@@ -1,3 +1,4 @@
+import json
 from json import loads
 from kafka import KafkaConsumer
 from app import keywords
@@ -10,9 +11,9 @@ mydb = myclient["mydatabase"]
 mycol = mydb["articles"]
 
 # generating the Kafka Consumer
-#def consumer(keyword):
+topics = keywords
 my_consumer = KafkaConsumer(
-        keywords[0],
+        *topics,
         bootstrap_servers=['localhost : 9092'],
         auto_offset_reset='earliest',
         enable_auto_commit=True,
@@ -20,10 +21,13 @@ my_consumer = KafkaConsumer(
         value_deserializer=lambda x: loads(x.decode('utf-8'))
 )
 
+my_consumer.subscribe(topics=topics)
+
 for message in my_consumer:
+        print("Consumer reads message from topic " + message.topic)
         message = message.value
         mycol.insert_one(message)
-        print(message)
+        #print(message)
 
 
 
