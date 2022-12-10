@@ -8,7 +8,7 @@ myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 
 mydb = myclient["mydatabase"]
 
-mycol = mydb["articles"]
+
 
 # generating the Kafka Consumer
 topics = keywords
@@ -24,9 +24,10 @@ my_consumer = KafkaConsumer(
 my_consumer.subscribe(topics=topics)
 
 for message in my_consumer:
+        col = mydb[message.topic]
         print("Consumer reads message from topic " + message.topic + "\n")
         message = message.value
-        mycol.insert_one(message)
+        col.insert_one(message)
         #print(message)
 
 

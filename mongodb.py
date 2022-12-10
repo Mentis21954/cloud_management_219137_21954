@@ -4,14 +4,23 @@ myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 
 mydb = myclient["mydatabase"]
 
-mycol = mydb["articles"]
+col = mydb["iphone"]
+
+print("List of databases:")
+print(myclient.list_database_names())
+print("\n" + "List of collections from database " + mydb.name )
+print(mydb.list_collection_names())
 
 # print(mycol.count_documents({}))
 
-cursor = mycol.find({})
+cursor = col.find({})
 for document in cursor:
-    print(document.keys())
+    print(document)
 
 
-x = mycol.delete_many({})
+"""""
+x = col.delete_many({})
 print(x.deleted_count, " documents deleted.")
+"""""
+
+# col.drop()
