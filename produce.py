@@ -8,7 +8,7 @@ from time import sleep
 # initializing the Kafka producer
 my_producer = KafkaProducer(
     bootstrap_servers=['localhost:9092'],
-    value_serializer=lambda v: json.dumps(v).encode('utf-8')
+    value_serializer=lambda v: json.dumps(v).encode('ascii')
 )
 
 for t in keywords:

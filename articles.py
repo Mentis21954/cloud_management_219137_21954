@@ -23,9 +23,6 @@ def postNewsAPI (keyword):
     # /v2/top-headlines/sources
     sources = newsapi.get_sources()
 
-    # Serializing json
-    json_object = json.dumps(all_articles)
-
     return all_articles
 
 def names(keyword):
