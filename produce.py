@@ -1,6 +1,5 @@
 from app import keywords
 import json
-from json import dumps
 from kafka import KafkaProducer
 from articles import postNewsAPI
 from time import sleep

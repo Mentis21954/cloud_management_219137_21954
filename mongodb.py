@@ -10,7 +10,7 @@ mycol = mydb["articles"]
 
 cursor = mycol.find({})
 for document in cursor:
-    print(document)
+    print(document.keys())
 
 
 x = mycol.delete_many({})

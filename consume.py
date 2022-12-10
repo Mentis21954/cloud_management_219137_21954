@@ -24,7 +24,7 @@ my_consumer = KafkaConsumer(
 my_consumer.subscribe(topics=topics)
 
 for message in my_consumer:
-        print("Consumer reads message from topic " + message.topic)
+        print("Consumer reads message from topic " + message.topic + "\n")
         message = message.value
         mycol.insert_one(message)
         #print(message)
