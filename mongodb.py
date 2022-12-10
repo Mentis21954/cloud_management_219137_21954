@@ -15,7 +15,7 @@ print(mydb.list_collection_names())
 
 cursor = col.find({})
 for document in cursor:
-    print(document)
+    print(document.keys())
 
 
 """""

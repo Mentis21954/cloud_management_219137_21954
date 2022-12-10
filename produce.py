@@ -15,4 +15,4 @@ for t in keywords:
     data = postNewsAPI(t)
     my_producer.send(topic=t, value=data)
     print("Message for topic " + t + " has send\n")
-    sleep(5)
+    sleep(1)
