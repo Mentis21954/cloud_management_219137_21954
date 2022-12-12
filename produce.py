@@ -3,7 +3,10 @@ import json
 from kafka import KafkaProducer
 from articles import postNewsAPI
 from time import sleep
+import pymongo
 
+myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+mydb = myclient["mydatabase"]
 
 # initializing the Kafka producer
 my_producer = KafkaProducer(

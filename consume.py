@@ -1,5 +1,4 @@
 import json
-from json import loads
 from kafka import KafkaConsumer
 from app import keywords
 import pymongo
