@@ -30,7 +30,7 @@ def postNewsAPI (keyword):
 
 
 def names(keyword, data):
-    print('Source names for ' + keyword)
+    #print('Source names for ' + keyword)
     source_names = []
     for i in range(len(data['articles'])):
         name = data['articles'][i]['source']['name']
@@ -40,10 +40,10 @@ def names(keyword, data):
     return source_names
 
 
-def find_extract(keyword):
-    data = postNewsAPI(keyword)
+def find_extract(keyword, data):
+    #data = postNewsAPI(keyword)
     source_names = names(keyword, data)
-    print(source_names)
+    #print(source_names)
 
     params = {
         'action': 'query',
@@ -55,7 +55,7 @@ def find_extract(keyword):
 
     extract_list = []
     for s in source_names:
-        print('\n######### Source name for ' + s + ' #############')
+        #print('\n######### Source name for ' + s + ' #############')
         url = ('https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exsentences=10&exlimit=1&titles=') + \
               s + ('&explaintext=1&formatversion=2')
 
@@ -63,11 +63,12 @@ def find_extract(keyword):
 
         extract = media_wiki['query']['pages'][0]['extract']
         if extract is '':
-            print('\n######## EXTRACT IS EMPTY ' + s + ' #############')
+            #print('\n######## EXTRACT IS EMPTY ' + s + ' #############')
+            continue
         else:
-            print(extract +'\n')
+            #print(extract +'\n')
             extract_list.append(extract)
 
     return extract_list
 
-find_extract('iphone')
+# find_extract('iphone')
