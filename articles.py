@@ -4,8 +4,8 @@ import json
 import requests
 
 # Init
-#newsapi = NewsApiClient(api_key='4d1d7d11eab64482a94668a4899dfc5e')
-newsapi = NewsApiClient(api_key='995786d01d324334a9dce9b5f8fe405f')
+newsapi = NewsApiClient(api_key='4d1d7d11eab64482a94668a4899dfc5e')
+#newsapi = NewsApiClient(api_key='995786d01d324334a9dce9b5f8fe405f')
 
 def postNewsAPI (keyword):
 
@@ -30,7 +30,7 @@ def postNewsAPI (keyword):
 
 
 def names(keyword, data):
-    #print('Source names for ' + keyword)
+    print('Source names for ' + keyword)
     source_names = []
     for i in range(len(data['articles'])):
         name = data['articles'][i]['source']['name']
@@ -43,7 +43,7 @@ def names(keyword, data):
 def find_extract(keyword, data):
     #data = postNewsAPI(keyword)
     source_names = names(keyword, data)
-    #print(source_names)
+    print(str(source_names))
 
     params = {
         'action': 'query',
@@ -61,13 +61,21 @@ def find_extract(keyword, data):
 
         media_wiki = requests.get(url, params=params).json()
 
-        extract = media_wiki['query']['pages'][0]['extract']
-        if extract is '':
-            #print('\n######## EXTRACT IS EMPTY ' + s + ' #############')
+        try:
+            extract = media_wiki['query']['pages'][0]['extract']
+            if extract:
+                if extract is '':
+                    print('\n######## EXTRACT IS EMPTY ' + s + ' #############')
+                    continue
+                else:
+                    # print(extract +'\n')
+                    extract_list.append(extract)
+            else:
+                continue
+        except KeyError:
+            print('Not found extract for domain name ' + s)
             continue
-        else:
-            #print(extract +'\n')
-            extract_list.append(extract)
+
 
     return extract_list
 
