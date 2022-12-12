@@ -13,16 +13,21 @@ my_producer = KafkaProducer(
 )
 
 topics = keywords
-topics.append('sources domain name')
+topics.append('sources_domain_name')
+print(topics)
 extracts_list = []
-for t in keywords:
-    if t != 'sources domain name':
+for t in topics:
+    if t != 'sources_domain_name':
         data = postNewsAPI(t)
         my_producer.send(topic=t, value=data)
         extracts_list.append(find_extract(t, data))
+        print(extracts_list)
+        print("Message for topic " + t + " has send\n")
     else:
+        print(extracts_list)
         my_producer.send(topic=t, value=extracts_list)
-    print("Message for topic " + t + " has send\n")
+        print("Message for topic " + t + " has send\n")
+
     # sleep(1)
 
 

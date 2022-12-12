@@ -9,6 +9,8 @@ mydb = myclient["mydatabase"]
 
 # generating the Kafka Consumer
 topics = keywords
+topics.append('sources_domain_name')
+print(topics)
 my_consumer = KafkaConsumer(
         *topics,
         bootstrap_servers=['localhost : 9092'],
