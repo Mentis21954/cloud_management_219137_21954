@@ -21,10 +21,10 @@ for t in topics:
         data = postNewsAPI(t)
         my_producer.send(topic=t, value=data)
         extracts_list.append(find_extract(t, data))
-        print(extracts_list)
+        #print(extracts_list)
         print("Message for topic " + t + " has send\n")
     else:
-        print(extracts_list)
+        #print(extracts_list)
         my_producer.send(topic=t, value=extracts_list)
         print("Message for topic " + t + " has send\n")
 

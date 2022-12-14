@@ -25,8 +25,8 @@ my_consumer.subscribe(topics=topics)
 for message in my_consumer:
         col = mydb[message.topic]
         print("Consumer reads message from topic " + message.topic + "\n")
-        message = message.value
-        #col.insert_one(message)
+        col.insert_one(message.value)
+        print("Collection "+ col.name +" insert "+ message.topic)
         #print(message)
 
 

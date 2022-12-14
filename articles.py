@@ -65,16 +65,18 @@ def find_extract(keyword, data):
             extract = str(media_wiki['query']['pages'][0]['extract'])
             if extract:
                 if extract is '':
-                    print('\n######## EXTRACT IS EMPTY ' + s + ' #############')
+                    #print('\n######## EXTRACT IS EMPTY ' + s + ' #############')
                     continue
                 else:
                     #print(extract +'\n')
-                    extract_list.append(extract)
+                    #extract_list.append(extract)
                     #return extract
+                    extract_list[s] = extract
         except KeyError:
-            #print('Not found extract for domain name ' + s)
+            print('########## Not found extract for domain name ' + s)
             continue
 
+    #print(extract_list)
     return extract_list
 
-# find_extract('iphone')
+#find_extract('iphone')
