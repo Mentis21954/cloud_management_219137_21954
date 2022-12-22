@@ -9,7 +9,7 @@ mydb = myclient["mydatabase"]
 
 # generating the Kafka Consumer
 topics = keywords
-#topics.append('sources_domain_name')
+topics.append('sources_domain_name')
 print(topics)
 my_consumer = KafkaConsumer(
         *topics,
@@ -24,9 +24,9 @@ my_consumer.subscribe(topics=topics)
 
 for message in my_consumer:
         col = mydb[message.topic]
-        print("Consumer reads message from topic " + message.topic + "\n")
+        print("Consumer reads message from topic " + message.topic)
         col.insert_one(message.value)
-        print("Topic " + message.topic + " insert to collection " + col.name)
+        print("Topic " + message.topic + " insert to collection " + col.name + "\n")
         #print(message)
 
 

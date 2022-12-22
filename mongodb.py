@@ -5,7 +5,7 @@ myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 
 mydb = myclient["mydatabase"]
 
-col = mydb["iphone"]
+col = mydb["sources_domain_name"]
 
 print("List of databases:")
 print(myclient.list_database_names())

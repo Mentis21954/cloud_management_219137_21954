@@ -1,11 +1,9 @@
 from newsapi import NewsApiClient
-import pandas as pd
-import json
 import requests
 
 # Init
-newsapi = NewsApiClient(api_key='4d1d7d11eab64482a94668a4899dfc5e')
-#newsapi = NewsApiClient(api_key='995786d01d324334a9dce9b5f8fe405f')
+#newsapi = NewsApiClient(api_key='4d1d7d11eab64482a94668a4899dfc5e')
+newsapi = NewsApiClient(api_key='995786d01d324334a9dce9b5f8fe405f')
 #newsapi = NewsApiClient(api_key='6a232d49d2c44edf848448c31654e4b5')
 
 def postNewsAPI (keyword):
@@ -42,9 +40,7 @@ def names(keyword, data):
     return source_names
 
 
-def find_extract(keyword, data):
-    #data = postNewsAPI(keyword)
-    source_names = names(keyword, data)
+def find_extract(source_name):
     #print(str(source_names))
 
     params = {
@@ -55,30 +51,22 @@ def find_extract(keyword, data):
         'srsearch': 'python'
     }
 
-    extract_list = []
-    for s in source_names:
-        #print('\n######### Source name for ' + s + ' #############')
-        url = ('https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exsentences=10&exlimit=1&titles=') + \
-              s + ('&explaintext=1&formatversion=2')
 
-        media_wiki = requests.get(url, params=params).json()
+    #print('\n######### Source name for ' + s + ' #############')
+    url = ('https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exsentences=10&exlimit=1&titles=') + \
+            source_name + ('&explaintext=1&formatversion=2')
 
-        try:
-            extract = str(media_wiki['query']['pages'][0]['extract'])
-            if extract:
-                if extract is '':
-                    #print('\n######## EXTRACT IS EMPTY ' + s + ' #############')
-                    continue
-                else:
-                    #print(extract +'\n')
-                    extract_list.append(extract)
-                    #return extract
-                    #extract_list[s] = extract
-        except KeyError:
-            #print('########## Not found extract for domain name ' + s)
-            continue
+    media_wiki = requests.get(url, params=params).json()
 
-    #print(extract_list)
-    return extract_list
-
-#find_extract('iphone')
+    try:
+        extract = str(media_wiki['query']['pages'][0]['extract'])
+        if extract:
+            if extract is '':
+                #print('\n######## EXTRACT IS EMPTY ' + s + ' #############')
+                return
+            else:
+                #print(extract +'\n')
+                return extract
+    except KeyError:
+        #print('########## Not found extract for domain name ' + s)
+        return
