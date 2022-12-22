@@ -4,9 +4,9 @@ import json
 import requests
 
 # Init
-#newsapi = NewsApiClient(api_key='4d1d7d11eab64482a94668a4899dfc5e')
+newsapi = NewsApiClient(api_key='4d1d7d11eab64482a94668a4899dfc5e')
 #newsapi = NewsApiClient(api_key='995786d01d324334a9dce9b5f8fe405f')
-newsapi = NewsApiClient(api_key='6a232d49d2c44edf848448c31654e4b5')
+#newsapi = NewsApiClient(api_key='6a232d49d2c44edf848448c31654e4b5')
 
 def postNewsAPI (keyword):
 
@@ -18,12 +18,14 @@ def postNewsAPI (keyword):
     all_articles = newsapi.get_everything(q=keyword,
                                           # sources='bbc-news,the-verge',
                                           # domains='bbc.co.uk,techcrunch.com',
-                                          #  from_param='2022-10-10',
-                                          #  to='2022-11-01',
+                                          # from_param='2022-10-10',
+                                          # to='2022-11-01',
                                           language='en',
                                           sort_by='relevancy')
     # /v2/top-headlines/sources
     sources = newsapi.get_sources()
+    # Serializing json
+    #json_object = json.dumps(all_articles)
 
     return all_articles
 
@@ -69,11 +71,11 @@ def find_extract(keyword, data):
                     continue
                 else:
                     #print(extract +'\n')
-                    #extract_list.append(extract)
+                    extract_list.append(extract)
                     #return extract
-                    extract_list[s] = extract
+                    #extract_list[s] = extract
         except KeyError:
-            print('########## Not found extract for domain name ' + s)
+            #print('########## Not found extract for domain name ' + s)
             continue
 
     #print(extract_list)
