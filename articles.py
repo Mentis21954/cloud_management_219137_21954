@@ -61,7 +61,7 @@ def find_extract(source_name):
     try:
         extract = str(media_wiki['query']['pages'][0]['extract'])
         if extract:
-            if extract is '':
+            if extract is None:
                 #print('\n######## EXTRACT IS EMPTY ' + s + ' #############')
                 return
             else:

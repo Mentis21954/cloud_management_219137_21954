@@ -20,20 +20,20 @@ print(topics)
 extracts_list = {}
 
 for t in topics:
-    if t not in 'sources_domain_name':
+    if t != 'sources_domain_name':
         data = postNewsAPI(t)
         sources_names = names(t, data)
         if t not in extracts_list.keys():
             for s in sources_names:
                 extract = find_extract(s)
-                extracts_list[s] = extract
+                extracts_list[str(s)] = extract
         my_producer.send(topic=t, value={t: data})
         print("Message for topic " + t + " has send\n")
         sleep(1)
     else:
-        print(extracts_list.keys())
-        my_producer.send(topic=t, value=json.dumps(extracts_list))
+        my_producer.send(topic=t, value=extracts_list)
         print("Message for topic " + t + " has send\n")
+        print(extracts_list)
 
 
 
