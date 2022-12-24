@@ -1,5 +1,6 @@
-import pymongo
 from app import keywords
+import pymongo
+
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 
 mydb = myclient["mydatabase"]
@@ -23,7 +24,7 @@ x = col.delete_many({})
 print(x.deleted_count, " documents deleted.")
 """""
 
-'''''
+"""""
 for i in keywords:
     col = mydb[i]
     col.drop()
@@ -37,4 +38,6 @@ print(col.name + " droped\n")
 col = mydb['users']
 col.drop()
 print(col.name + " droped\n")
-'''''
+"""""
+
+

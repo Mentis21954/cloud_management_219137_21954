@@ -1,7 +1,7 @@
 import json
 from kafka import KafkaConsumer
-from app import keywords
 import pymongo
+from app import keywords
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 
