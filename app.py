@@ -15,7 +15,7 @@ users = mydb['users']
 
 @app.route('/')
 def hello_world():  # put application's code here
-    return '<h1> hello </h1>'
+    return '<h1> welcome to the system </h1>'
 
 @app.route('/iphone')
 def iphone():  # put application's code here
@@ -52,7 +52,7 @@ def post(userid):  # put application's code here
             'keywords': keywords
         })
 
-        print(userid +" insert to collection "+ users.name)
+        print("User "+ userid +" insert to collection "+ users.name)
         output = {
             "userid": userid,
             'city': str(request.args.get('city')),
@@ -76,13 +76,31 @@ def read():  # put application's code here
 @app.route('/read/<userid>', methods = ['GET'])
 def get(userid):  # put application's code here
     try:
-        user = users.find_one({'userid': userid}).get('userid')
-        if (str(user) == str(userid)):
+        user_test = users.find_one({'userid': userid}).get('userid')
+        if (str(user_test) == str(userid)):
             keys = users.find_one({'userid': userid}, {'keywords': 1}).get('keywords')
             for k in keys:
                 col = mydb[k]
                 print(col.name)
             return jsonify({'keywords': str(keys)})
+    except:
+        return '<h1> Error... this user is not exist! </hi>'
+
+
+@app.route('/delete')
+def delete():  # put application's code here
+    return '<h1> Error...You must type the userid to continue </h1>'
+
+@app.route('/delete/<userid>')
+def delete_user(userid):  # put application's code here
+    try:
+        user_test = users.find_one({'userid': userid}).get('userid')
+        if (str(user_test) == str(userid)):
+            users.delete_one({'userid': userid})
+            print('User ' + userid + ' has deleted from collection '+ users.name)
+            return jsonify({'Status': 'User Deleted'})
+        else:
+            return '<h1> Error... this user is not exist! </hi>'
     except:
         return '<h1> Error... this user is not exist! </hi>'
 
