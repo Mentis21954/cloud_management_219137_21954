@@ -14,8 +14,13 @@ mydb = myclient["mydatabase"]
 users = mydb['users']
 
 @app.route('/')
-def hello_world():  # put application's code here
-    return '<h1> welcome to the system </h1>'
+def menu():  # put application's code here
+    return "<h1>Welcome to the System!</h1>" \
+           "<p>Menu:</p>" \
+           "<p>-create</p>" \
+           "<p>-read</p>" \
+           "<p>-update</p>" \
+           "<p>-delete</p>"
 
 @app.route('/iphone')
 def iphone():  # put application's code here
@@ -24,7 +29,7 @@ def iphone():  # put application's code here
 
 @app.route('/create')
 def create():  # put application's code here
-    return '<h1> Error...You must type a userid, city and 8 favorite keywords </h1>'
+    return '<h1> You must type a userid, city and 8 favorite keywords </h1>'
 
 
 #127.0.0.1:5000/create/akis?k1=iphone&k2=android&k3=cars&k4=intel&k5=microsoft&k6=sony&k7=java&k8=python&city=athens
@@ -71,7 +76,7 @@ def post(userid):  # put application's code here
 
 @app.route('/read')
 def read():  # put application's code here
-    return '<h1> Error...You must type the userid to continue </h1>'
+    return '<h1> You must type the userid to continue </h1>'
 
 @app.route('/read/<userid>', methods = ['GET'])
 def get(userid):  # put application's code here
@@ -89,7 +94,7 @@ def get(userid):  # put application's code here
 
 @app.route('/delete')
 def delete():  # put application's code here
-    return '<h1> Error...You must type the userid to continue </h1>'
+    return '<h1> You must type the userid to continue </h1>'
 
 @app.route('/delete/<userid>')
 def delete_user(userid):  # put application's code here
