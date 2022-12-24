@@ -34,10 +34,10 @@ def create():  # put application's code here
 
 #127.0.0.1:5000/create/akis?k1=iphone&k2=android&k3=cars&k4=intel&k5=microsoft&k6=sony&k7=java&k8=python&city=athens
 @app.route('/create/<userid>')
-def post(userid):  # put application's code here
+def create_one(userid):  # put application's code here
     try:
         user_test = users.find_one({'userid': userid}).get('userid')
-        if (str(user_test) == str(userid)):
+        if str(user_test) == str(userid):
             return '<h1> Error... this user is already created </hi>'
     except AttributeError:
         keywords = []
@@ -79,10 +79,10 @@ def read():  # put application's code here
     return '<h1> You must type the userid to continue </h1>'
 
 @app.route('/read/<userid>', methods = ['GET'])
-def get(userid):  # put application's code here
+def read_one(userid):  # put application's code here
     try:
         user_test = users.find_one({'userid': userid}).get('userid')
-        if (str(user_test) == str(userid)):
+        if str(user_test) == str(userid):
             keys = users.find_one({'userid': userid}, {'keywords': 1}).get('keywords')
             for k in keys:
                 col = mydb[k]
@@ -90,6 +90,38 @@ def get(userid):  # put application's code here
             return jsonify({'keywords': str(keys)})
     except:
         return '<h1> Error... this user is not exist! </hi>'
+
+
+@app.route('/update')
+def update():  # put application's code here
+    return '<h1> You must type the userid and new keywords to continue </h1>'
+
+@app.route('/update/<userid>')
+def update_one(userid):  # put application's code here
+    try:
+        user_test = users.find_one({'userid': userid}).get('userid')
+        if str(user_test) == str(userid):
+            keywords = []
+            keywords.append(str(request.args.get('k1')))
+            keywords.append(str(request.args.get('k2')))
+            keywords.append(str(request.args.get('k3')))
+            keywords.append(str(request.args.get('k4')))
+            keywords.append(str(request.args.get('k5')))
+            keywords.append(str(request.args.get('k6')))
+            keywords.append(str(request.args.get('k7')))
+            keywords.append(str(request.args.get('k8')))
+            users.update_one({'userid': userid}, {"$set": {'keywords': keywords}})
+            print('User '+ userid+ 'updates his keywords')
+
+            return jsonify({'status': 'update completed',
+                            'keywords': keywords,
+                            'userid': userid})
+        else:
+            return '<h1> Error... this user is not exist! </hi>'
+    except:
+        return '<h1> Error... this user is not exist! </hi>'
+
+
 
 
 @app.route('/delete')
