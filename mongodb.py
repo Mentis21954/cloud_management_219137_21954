@@ -4,20 +4,41 @@ import pymongo
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 
 mydb = myclient["mydatabase"]
-
-col = mydb["users"]
-
 print("List of databases:")
 print(myclient.list_database_names())
 print("\n" + "List of collections from database " + mydb.name )
 print(mydb.list_collection_names())
 
-# print(mycol.count_documents({}))
 
-cursor = col.find({})
+source_names_db = mydb["sources_domain_name"]
+extracts = {}
+source_names = []
+cursor = source_names_db.find({})
 for document in cursor:
-    print(document)
+    for key in document.keys():
+        value = document.get(key)
+        source_names.append(key)
+        if value is not None:
+            extracts[key] = str(value)
 
+articles = {}
+
+for s in source_names:
+    col = mydb['iphone']
+    cursor = col.find({})
+    documents = []
+    extracts2 = []
+    for document in cursor:
+        for i in range(len(document.get('articles'))):
+            if s == document.get('articles')[i]['source']['name']:
+                documents.append(document.get('articles')[i])
+                if s in extracts.keys():
+                    extracts2.append(extracts.get(value))
+
+    articles[s] = documents
+
+
+print(articles.keys())
 
 """""
 x = col.delete_many({})

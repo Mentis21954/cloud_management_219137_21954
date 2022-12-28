@@ -81,14 +81,45 @@ def read():  # put application's code here
 @app.route('/read/<userid>', methods = ['GET'])
 def read_one(userid):  # put application's code here
     try:
+        # check id user exists
         user_test = users.find_one({'userid': userid}).get('userid')
         if str(user_test) == str(userid):
+            # find user keywords
             keys = users.find_one({'userid': userid}, {'keywords': 1}).get('keywords')
-            for k in keys:
-                col = mydb[k]
-                print(col.name)
-            return jsonify({'keywords': str(keys)})
-    except:
+
+            source_names_db = mydb["sources_domain_name"]
+            extracts = {}
+            source_names = []
+            cursor = source_names_db.find({})
+            for document in cursor:
+                for key in document.keys():
+                    value = document.get(key)
+                    source_names.append(key)
+                    if value is not None:
+                        extracts[key] = str(value)
+
+            articles = {}
+
+            for s in source_names:
+                for k in keys:
+                    col = mydb[k]
+                    documents = []
+                    cursor = col.find({})
+                    for document in cursor:
+                        for i in range(len(document.get('articles'))):
+                            if s == document.get('articles')[i]['source']['name']:
+
+                                documents.append(document.get('articles')[i])
+
+                articles[s] = documents
+                print(articles.keys())
+
+
+        return jsonify({
+                    'articles': articles,
+                })
+
+    except KeyError:
         return '<h1> Error... this user is not exist! </hi>'
 
 

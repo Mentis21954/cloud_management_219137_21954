@@ -27,7 +27,7 @@ if keywords is not None:
                 for s in sources_names:
                     extract = find_extract(s)
                     extracts_list[str(s)] = extract
-            my_producer.send(topic=t, value={t: data})
+            my_producer.send(topic=t, value=data)
             print("Message for topic " + t + " has send\n")
             #sleep(1)
         else:
