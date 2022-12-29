@@ -22,14 +22,12 @@ def postNewsAPI (keyword):
                                           sort_by='relevancy')
     # /v2/top-headlines/sources
     sources = newsapi.get_sources()
-    # Serializing json
-    #json_object = json.dumps(all_articles)
 
     return all_articles
 
 
 
-def names(keyword, data):
+def names(data):
     #print('Source names for ' + keyword)
     source_names = []
     for i in range(len(data['articles'])):

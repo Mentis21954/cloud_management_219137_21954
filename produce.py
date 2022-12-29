@@ -22,7 +22,7 @@ if keywords is not None:
     for t in topics:
         if t != 'sources_domain_name':
             data = postNewsAPI(t)
-            sources_names = names(t, data)
+            sources_names = names(data)
             if t not in extracts_list.keys():
                 for s in sources_names:
                     extract = find_extract(s)

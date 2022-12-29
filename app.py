@@ -1,14 +1,14 @@
 from flask import Flask
 from flask import jsonify
 from flask import request
-from articles import postNewsAPI
-import json
 import time
 import pymongo
 
 app = Flask(__name__)
 
+# my keywords for database
 keywords = ['iphone', 'android', 'cars', 'intel', 'microsoft', 'sony', 'java', 'python']
+
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["mydatabase"]
 users = mydb['users']
@@ -21,10 +21,6 @@ def menu():  # put application's code here
            "<p>-read</p>" \
            "<p>-update</p>" \
            "<p>-delete</p>"
-
-@app.route('/iphone')
-def iphone():  # put application's code here
-    return postNewsAPI('iphone')
 
 
 @app.route('/create')
@@ -58,19 +54,15 @@ def create_one(userid):  # put application's code here
         })
 
         print("User "+ userid +" insert to collection "+ users.name)
+
         output = {
             "userid": userid,
             'city': str(request.args.get('city')),
             'time': str(time.time()),
-            'keywords': keywords
+            'keywords': keywords,
+            'status': 'User created'
         }
 
-        # Serializing json
-        json_object = json.dumps(output)
-        # Writing to sample.json
-        with open("user.json", "w") as outfile:
-            outfile.write(json_object)
-        #keywords.clear()
         return output
 
 
@@ -80,15 +72,15 @@ def read():  # put application's code here
 
 @app.route('/read/<userid>', methods = ['GET'])
 def read_one(userid):  # put application's code here
+
     try:
-        # check id user exists
+        # check if userid exists
         user_test = users.find_one({'userid': userid}).get('userid')
         if str(user_test) == str(userid):
-            # find user keywords
-            keys = users.find_one({'userid': userid}, {'keywords': 1}).get('keywords')
-
             source_names_db = mydb["sources_domain_name"]
-            extracts = {}
+            # list with all extracts from all domains names
+            extracts_list = {}
+            # all domain names
             source_names = []
             cursor = source_names_db.find({})
             for document in cursor:
@@ -96,37 +88,50 @@ def read_one(userid):  # put application's code here
                     value = document.get(key)
                     source_names.append(key)
                     if value is not None:
-                        extracts[key] = str(value)
+                        # extracts is exist and store
+                        extracts_list[key] = str(value)
 
-            articles = {}
 
-            for s in source_names:
-                for k in keys:
-                    col = mydb[k]
+            output = {}
+            # find user keywords
+            keys = users.find_one({'userid': userid}, {'keywords': 1}).get('keywords')
+            for k in keys:
+                # every collection
+                col = mydb[k]
+                # initilize articles for each keyword
+                articles = {}
+                # initilize extracts for each keyword
+                extracts = {}
+                for s in source_names:
                     documents = []
                     cursor = col.find({})
                     for document in cursor:
+                        # search for all articles in this keyword collection
                         for i in range(len(document.get('articles'))):
+                            # if find this source name, store documents
                             if s == document.get('articles')[i]['source']['name']:
-
                                 documents.append(document.get('articles')[i])
+                                articles[s] = documents
+                                # if source names has extract from list and it's not stored yet, store now
+                                if (s in extracts_list.keys()) and (s not in extracts.keys()):
+                                    extracts[s] = extracts_list.get(s)
+                # output with articles and extracts from this collection/keyword
+                output[k] = {'articles': articles, 'extracts': extracts}
 
-                articles[s] = documents
-                print(articles.keys())
+            return output
+
+    except AttributeError:
+        return '<h1> userid Dont exist ! </h1>'
 
 
-        return jsonify({
-                    'articles': articles,
-                })
-
-    except KeyError:
-        return '<h1> Error... this user is not exist! </hi>'
 
 
 @app.route('/update')
 def update():  # put application's code here
     return '<h1> You must type the userid and new keywords to continue </h1>'
 
+
+#http://127.0.0.1:5000/update/akis?k1=iphone&k2=android&k3=cars&k4=intel&k5=microsoft&k6=sony&k7=java&k8=python&city=athens
 @app.route('/update/<userid>')
 def update_one(userid):  # put application's code here
     try:
@@ -166,7 +171,7 @@ def delete_user(userid):  # put application's code here
         if (str(user_test) == str(userid)):
             users.delete_one({'userid': userid})
             print('User ' + userid + ' has deleted from collection '+ users.name)
-            return jsonify({'Status': 'User Deleted'})
+            return jsonify({'status': 'User Deleted'})
         else:
             return '<h1> Error... this user is not exist! </hi>'
     except:
