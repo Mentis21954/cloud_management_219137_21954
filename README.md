@@ -2,7 +2,7 @@
 
 
 KAFKA 
-- install kafka with docker compose (url https://developer.confluent.io/quickstart/kafka-docker/)
+- install kafka with docker compose (url: https://developer.confluent.io/quickstart/kafka-docker/)
 docker-compose up -d
 docker-compose down
 
@@ -24,7 +24,7 @@ kafka-console-consumer --bootstrap-server broker:9092 \
                        --from-beginning
 
 
-Mongo DB for UBUNTU
+Mongo DB for UBUNTU (url installation: https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/)
 - sudo systemctl start mongod
 - sudo systemctl status mongod
 - sudo systemctl stop mongod
