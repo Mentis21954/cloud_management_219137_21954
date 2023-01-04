@@ -7,7 +7,8 @@ import pymongo
 app = Flask(__name__)
 
 # my keywords for database
-keywords = ['iphone', 'android', 'cars', 'intel', 'microsoft', 'sony', 'java', 'python']
+#keywords = ['iphone', 'android', 'cars', 'intel', 'microsoft', 'sony', 'java', 'python']
+keywords = ['pop', 'greece', 'cars', 'gaming', 'microsoft', 'sony', 'xbox', 'marketing']
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["mydatabase"]
@@ -23,13 +24,13 @@ def menu():  # put application's code here
            "<p>-delete</p>"
 
 
-@app.route('/create')
+@app.route('/create', methods = ['POST'])
 def create():  # put application's code here
     return '<h1> You must type a userid, city and 8 favorite keywords </h1>'
 
 
-#127.0.0.1:5000/create/akis?k1=iphone&k2=android&k3=cars&k4=intel&k5=microsoft&k6=sony&k7=java&k8=python&city=athens
-@app.route('/create/<userid>')
+
+@app.route('/create/<userid>', methods = ['POST'])
 def create_one(userid):  # put application's code here
     try:
         user_test = users.find_one({'userid': userid}).get('userid')
@@ -66,7 +67,7 @@ def create_one(userid):  # put application's code here
         return output
 
 
-@app.route('/read')
+@app.route('/read', methods = ['GET'])
 def read():  # put application's code here
     return '<h1> You must type the userid to continue </h1>'
 
@@ -126,13 +127,13 @@ def read_one(userid):  # put application's code here
 
 
 
-@app.route('/update')
+@app.route('/update', methods = ['PUT'])
 def update():  # put application's code here
     return '<h1> You must type the userid and new keywords to continue </h1>'
 
 
 #http://127.0.0.1:5000/update/akis?k1=iphone&k2=android&k3=cars&k4=intel&k5=microsoft&k6=sony&k7=java&k8=python&city=athens
-@app.route('/update/<userid>')
+@app.route('/update/<userid>', methods = ['PUT'])
 def update_one(userid):  # put application's code here
     try:
         user_test = users.find_one({'userid': userid}).get('userid')
@@ -160,11 +161,11 @@ def update_one(userid):  # put application's code here
 
 
 
-@app.route('/delete')
+@app.route('/delete', methods = ['DELETE'])
 def delete():  # put application's code here
     return '<h1> You must type the userid to continue </h1>'
 
-@app.route('/delete/<userid>')
+@app.route('/delete/<userid>', methods = ['DELETE'])
 def delete_user(userid):  # put application's code here
     try:
         user_test = users.find_one({'userid': userid}).get('userid')

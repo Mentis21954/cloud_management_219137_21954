@@ -33,4 +33,4 @@ if keywords is not None:
         else:
             my_producer.send(topic=t, value=extracts_list)
             print("Message for topic " + t + " has send\n")
-            print(extracts_list)
+            #print(extracts_list)
