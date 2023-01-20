@@ -132,7 +132,7 @@ def update():  # put application's code here
     return '<h1> You must type the userid and new keywords to continue </h1>'
 
 
-#http://127.0.0.1:5000/update/akis?k1=iphone&k2=android&k3=cars&k4=intel&k5=microsoft&k6=sony&k7=java&k8=python&city=athens
+
 @app.route('/update/<userid>', methods = ['PUT'])
 def update_one(userid):  # put application's code here
     try:

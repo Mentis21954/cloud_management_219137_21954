@@ -26,7 +26,7 @@ def numb_articles_by_coll(date,col_name):
     return articles_by_coll
 
 
-date = ['2022-12-15', '2022-12-16', '2022-12-17', '2022-12-18', '2022-12-19']
+date = ['2022-12-22', '2022-12-23', '2022-12-24', '2022-12-25', '2022-12-26']
 # store number of articles from collections
 articles = []
 # store name of collections

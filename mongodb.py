@@ -1,4 +1,3 @@
-from app import keywords
 import pymongo
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
@@ -10,7 +9,7 @@ print("\n" + "List of collections from database " + mydb.name)
 print(mydb.list_collection_names())
 
 
-col = mydb['sony']
+col = mydb['users']
 
 cursor = col.find({})
 print('\nList of users')
@@ -18,7 +17,12 @@ for document in cursor:
     print(document)
 
 
+
 """""
+
+keywords = ['iphone', 'android', 'cars', 'intel', 'microsoft', 'sony', 'java', 'python',
+'pop', 'greece', 'gaming', 'xbox', 'marketing']
+
 for i in keywords:
     col = mydb[i]
     col.drop()

@@ -42,14 +42,14 @@ Mongo DB for UBUNTU (url installation: https://www.mongodb.com/docs/manual/tutor
 
 # EXAMPLES ENDPOINTS FOR APP
 - CREATE USER 
-/create/akis?k1=iphone&k2=android&k3=cars&k4=intel&k5=microsoft&k6=sony&k7=java&k8=python&city=athens 
+/create/maria?k1=iphone&k2=android&k3=cars&k4=intel&k5=microsoft&k6=sony&k7=java&k8=python&city=athens 
 /create/kostas?k1=pop&k2=greece&k3=cars&k4=gaming&k5=microsoft&k6=sony&k7=xbox&k8=marketing&city=patra
 
 - READ USER
 read/kostas
 
 - UPDATE USER
-update/akis?k1=pop&k2=greece&k3=cars&k4=gaming&k5=microsoft&k6=sony&k7=xbox&k8=marketing
+update/maria?k1=pop&k2=greece&k3=cars&k4=gaming&k5=microsoft&k6=sony&k7=xbox&k8=marketing
 
 - DELETE USER
-delete/akis
+delete/maria
