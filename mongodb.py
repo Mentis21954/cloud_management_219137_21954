@@ -10,7 +10,7 @@ print("\n" + "List of collections from database " + mydb.name)
 print(mydb.list_collection_names())
 
 
-col = mydb['users']
+col = mydb['sony']
 
 cursor = col.find({})
 print('\nList of users')
